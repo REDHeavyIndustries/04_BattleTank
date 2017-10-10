@@ -6,6 +6,6 @@ Section 4 of Unreal Course with Ben Tristem where we create a head to head tank-
 Notes and Updates here
 ## Videos Watched
 
-*BT01 Intro, Notes & Assets
-*BT02 Game Design Document (GDD)
-*BT03 Online GitHub Setup
+* BT01 Intro, Notes & Assets
+* BT02 Game Design Document (GDD)
+* BT03 Online GitHub Setup
