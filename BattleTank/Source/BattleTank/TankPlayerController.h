@@ -7,6 +7,7 @@
 #include "Public/UObject/Class.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/Actor.h"
+#include "GameFramework/Pawn.h"
 #include "Public/Tank.h"
 #include "TankPlayerController.generated.h"
 
@@ -15,10 +16,10 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
-public:
-	ATank* GetControlledTank() const;
-
+private:
 	virtual void BeginPlay() override;
+	
+	ATank* GetControlledTank() const;
 	
 	
 	
