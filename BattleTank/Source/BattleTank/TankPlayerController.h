@@ -19,10 +19,11 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 private:
 	virtual void BeginPlay() override;
 
+	ATank* GetControlledTank() const;
+	
 	//Aims Barrel towards aimpoint
 	void AimTowardsCrosshair();
-	
-	ATank* GetControlledTank() const;
+	bool bGetSightRayHitLocation(FVector& OutHitLocation) const;
 	
 public:
 	// Called every frame
