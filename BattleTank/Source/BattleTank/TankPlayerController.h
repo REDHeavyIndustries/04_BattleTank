@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BattleTank.h"
+#include "Engine/World.h"
 #include "Public/UObject/Class.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/Actor.h"
@@ -24,13 +25,18 @@ private:
 	
 	//Aims Barrel towards aimpoint
 	void AimTowardsCrosshair();
-	bool bGetSightRayHitLocation(FVector& OutHitLocation) const;
+	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
+	bool GetLookVectorHitLocation(FVector LookDirection, FVector& OutHitLocation) const;
+	bool GetLookDirection(FVector2D ScreenLocation, FVector& OutLookDirection) const;
+
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ScreenAimingPosition)
 		float AimX = 0.5f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ScreenAimingPosition)
 		float AimY = 0.33333f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MaximumFiringRange)
+		float LineTraceRange = 1000000.f;
 
 	
 public:
