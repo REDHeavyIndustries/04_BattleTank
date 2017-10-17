@@ -38,8 +38,6 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MaximumFiringRange)
 		float LineTraceRange = 1000000.f;
 
-	
-public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 

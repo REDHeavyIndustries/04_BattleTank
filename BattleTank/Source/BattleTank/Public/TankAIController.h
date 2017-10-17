@@ -10,6 +10,7 @@
 #include "GameFramework/Pawn.h"
 #include "Engine/World.h"
 #include "Public/Tank.h"
+#include "Public/Math/Vector2D.h"
 #include "TankAIController.generated.h"
 
 UCLASS()
@@ -22,8 +23,14 @@ private:
 
 	ATank* GetControlledTank() const;
 	ATank* GetPlayerTank() const;
-	
-	
+	void AimTowardsPlayer();
+
+
+
+
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
 	
 	
 };

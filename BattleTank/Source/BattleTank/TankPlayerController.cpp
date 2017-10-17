@@ -29,10 +29,8 @@ void ATankPlayerController::AimTowardsCrosshair()
 	FVector OutHitLocation;
 	if (GetSightRayHitLocation(OutHitLocation))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), *OutHitLocation.ToString());
-		// linetrace through crosshair
-		// if it hits something
-			//turn turret & barrel towards aimpoint
+		
+		GetControlledTank()->AimAt(OutHitLocation);
 	}
 }
 
