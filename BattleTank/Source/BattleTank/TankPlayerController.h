@@ -3,15 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "BattleTank.h"
+
 #include "Engine/World.h"
 #include "Public/UObject/Class.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/Pawn.h"
-#include "Public/Tank.h"
 #include "Public/Math/Vector2D.h"
 #include "TankPlayerController.generated.h"
+
+//FWD DECS
+class ATank;
 
 UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController
