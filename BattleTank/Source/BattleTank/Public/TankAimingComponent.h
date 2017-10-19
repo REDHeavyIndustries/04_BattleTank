@@ -12,6 +12,7 @@
 
 //FWD DECS
 class UTankBarrel;
+class UTankTurret;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
@@ -23,10 +24,12 @@ public:
 	UTankAimingComponent();
 	void AimAt(FVector OutHitLocation, float LaunchSpeed);
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
-	// TODO Add a 'Set Turret Reference"
+	void SetTurretReference(UTankTurret* TurretToSet);
+
 
 
 private:
 	UTankBarrel* Barrel = nullptr;
+	UTankTurret* Turret = nullptr;
 	void MoveBarrel(FVector AimDirection);
 };
