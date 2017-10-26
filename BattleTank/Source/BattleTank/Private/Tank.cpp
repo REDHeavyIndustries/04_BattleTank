@@ -21,7 +21,11 @@ void ATank::BeginPlay() { Super::BeginPlay(); }
 void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 { Super::SetupPlayerInputComponent(PlayerInputComponent); }
 
-void ATank::AimAt(FVector OutHitLocation) { TankAimingComponent->AimAt(OutHitLocation, LaunchSpeed); }
+void ATank::AimAt(FVector OutHitLocation) 
+{ 
+	if (!TankAimingComponent) { return; }
+	TankAimingComponent->AimAt(OutHitLocation, LaunchSpeed); 
+}
 
 void ATank::Fire()
 {
