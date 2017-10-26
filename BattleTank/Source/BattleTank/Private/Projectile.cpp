@@ -2,7 +2,6 @@
 
 #include "Projectile.h"
 
-
 // Sets default values
 AProjectile::AProjectile()
 {
@@ -13,18 +12,10 @@ AProjectile::AProjectile()
 }
 
 // Called when the game starts or when spawned
-void AProjectile::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
+void AProjectile::BeginPlay() { Super::BeginPlay(); }
 
 // Called every frame
-void AProjectile::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
+void AProjectile::Tick(float DeltaTime) { Super::Tick(DeltaTime); }
 
 void AProjectile::LaunchShell(float Speed)
 {

@@ -16,21 +16,16 @@ void ATankPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	AimTowardsCrosshair();
-	
 }
 
-
 ATank* ATankPlayerController::GetControlledTank() const { return Cast<ATank>(GetPawn()); }
-
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
 	if (!GetControlledTank()) { return; }
-
 	FVector OutHitLocation;
 	if (GetSightRayHitLocation(OutHitLocation))
 	{
-		
 		GetControlledTank()->AimAt(OutHitLocation);
 	}
 }
@@ -50,9 +45,6 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 		// line-trace along that look direction, and see what we hit (to max range)
 		GetLookVectorHitLocation(OutLookDirection, OutHitLocation);
 	}
-
-
-	
 	return true;
 }
 
@@ -65,8 +57,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector OutLookDirection, F
 			HitResult,
 			StartLocation,
 			EndLocation,
-			ECollisionChannel::ECC_Visibility)
-		)
+			ECollisionChannel::ECC_Visibility))
 	{
 		OutHitLocation = HitResult.Location;
 		return true;
@@ -78,14 +69,9 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector OutLookDirection, F
 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& OutLookDirection) const
 {
 	FVector CameraWorldLocation; // Unused Vector -> Discard
-	return DeprojectScreenPositionToWorld
-	(
+	return DeprojectScreenPositionToWorld(
 		ScreenLocation.X, 
 		ScreenLocation.Y, 
 		CameraWorldLocation, 
-		OutLookDirection
-	);
-	
+		OutLookDirection);
 }
-
-

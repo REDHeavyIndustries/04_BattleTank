@@ -39,8 +39,6 @@ public:
 private:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	
-	
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -54,15 +52,12 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 		float ReloadTimeInSeconds = 3;
 
-
-
 	// local barrel reference for spawning projectile
 	UTankBarrel* Barrel = nullptr;
-
-	
 	double LastFireTime = 0;
 
 protected:
+	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
 	UPROPERTY(BlueprintReadOnly)
