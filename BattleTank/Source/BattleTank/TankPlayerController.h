@@ -30,11 +30,11 @@ private:
 protected:
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 		ATank* GetControlledTank() const;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ScreenAimingPosition)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ScreenAimingPosition")
 		float AimX = 0.5f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ScreenAimingPosition)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ScreenAimingPosition")
 		float AimY = 0.33333f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MaximumFiringRange)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MaximumFiringRange")
 		float LineTraceRange = 1000000.f;
 
 	virtual void Tick(float DeltaTime) override;
