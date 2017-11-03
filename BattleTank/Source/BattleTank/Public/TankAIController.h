@@ -4,15 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
-#include "BattleTank.h"
 #include "Public/UObject/Class.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/Pawn.h"
 #include "Engine/World.h"
-#include "Public/Tank.h"
 #include "Public/Math/Vector2D.h"
 #include "TankAIController.generated.h"
 
+//FWD DECS
+class UTankAimingComponent;
 UCLASS()
 class BATTLETANK_API ATankAIController : public AAIController
 {

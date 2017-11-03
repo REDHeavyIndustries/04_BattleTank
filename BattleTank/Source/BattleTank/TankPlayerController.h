@@ -13,7 +13,6 @@
 #include "TankPlayerController.generated.h"
 
 //FWD DECS
-class ATank;
 class UTankAimingComponent;
 
 UCLASS()
@@ -31,14 +30,12 @@ private:
 protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 		void FoundAimingComponent(UTankAimingComponent* AimCompref);
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-		ATank* GetControlledTank() const;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ScreenAimingPosition")
 		float AimX = 0.5f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ScreenAimingPosition")
 		float AimY = 0.33333f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MaximumFiringRange")
 		float LineTraceRange = 1000000.f;
-
+	
 	virtual void Tick(float DeltaTime) override;
 };

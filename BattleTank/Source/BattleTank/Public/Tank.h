@@ -12,8 +12,6 @@
 //FWD DECS
 class UTankBarrel;
 class UTankTurret;
-class UTankAimingComponent;
-
 class AProjectile;
 
 UCLASS()
@@ -24,8 +22,6 @@ class BATTLETANK_API ATank : public APawn
 public:
 	// Sets default values for this pawn's properties
 	ATank();
-
-	void AimAt(FVector OutHitLocation);
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void Fire();
@@ -49,8 +45,4 @@ private:
 	// local barrel reference for spawning projectile
 	UTankBarrel* Barrel = nullptr; // TODO remove
 	double LastFireTime = 0;
-
-protected:
-	UPROPERTY(BlueprintReadOnly)
-	UTankAimingComponent* TankAimingComponent = nullptr;
 };
