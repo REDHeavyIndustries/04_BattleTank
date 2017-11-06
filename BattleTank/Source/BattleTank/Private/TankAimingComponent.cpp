@@ -3,14 +3,10 @@
 #include "TankAimingComponent.h"
 #include "Public/TankBarrel.h"
 #include "Public/TankTurret.h"
+#include "Public/Projectile.h"
 
 // Sets default values for this component's properties
-UTankAimingComponent::UTankAimingComponent()
-{
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
-}
+UTankAimingComponent::UTankAimingComponent() { PrimaryComponentTick.bCanEverTick = true; }
 
 void UTankAimingComponent::InitialiseAim(UTankTurret* TurretToSet, UTankBarrel* BarrelToSet)
 {
@@ -48,7 +44,21 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 	auto TurretAzimuth = Turret->GetForwardVector().Rotation();
 	auto DeltaAzimuth = AimAsRotator - TurretAzimuth;
-	
 	Barrel->Elevate(DeltaRotator.Pitch);
 	Turret->RotateTurret(DeltaAzimuth.Yaw);
+}
+
+void UTankAimingComponent::Fire()
+{
+	if (!ensure(Barrel)) { return; }
+	bool bIsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
+	if (bIsReloaded)
+	{
+		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
+			ProjectileBlueprint,
+			Barrel->GetSocketLocation(FName("Projectile")),
+			Barrel->GetSocketRotation(FName("Projectile")));
+		Projectile->LaunchShell(LaunchSpeed);
+		LastFireTime = FPlatformTime::Seconds();
+	}
 }

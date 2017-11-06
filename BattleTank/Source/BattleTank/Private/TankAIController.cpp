@@ -13,6 +13,6 @@ void ATankAIController::Tick(float DeltaTime)
 	if (!ensure(PlayerTank && ControlledTank)) { return; }
 		MoveToActor(PlayerTank, AcceptanceRadius, true, true, false);
 		AimingComponent->AimAt(PlayerTank->GetActorLocation());
-		//ControlledTank->Fire();
+		AimingComponent->Fire();
 }
 
