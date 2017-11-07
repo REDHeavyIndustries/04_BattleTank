@@ -8,10 +8,31 @@
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent() { PrimaryComponentTick.bCanEverTick = true; }
 
+void UTankAimingComponent::BeginPlay()
+{
+	Super::BeginPlay();
+	
+}
+
 void UTankAimingComponent::InitialiseAim(UTankTurret* TurretToSet, UTankBarrel* BarrelToSet)
 {
 	Turret = TurretToSet;
 	Barrel = BarrelToSet;
+}
+
+void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
+{
+	if (bool bIsReloaded = (GetWorld()->GetTimeSeconds() - LastFireTime) < ReloadTimeInSeconds)
+	{ FiringState = EFiringState::Reloading; }
+	else if (bIsBarrelMoving()) { FiringState = EFiringState::Aiming; }
+	else { FiringState = EFiringState::Locked; }
+}
+
+bool UTankAimingComponent::bIsBarrelMoving()
+{
+	if (!ensure(Barrel)) { return false; }
+	auto BarrelForward = Barrel->GetForwardVector();
+	return !BarrelForward.Equals(AimDirection, 0.01);
 }
 
 void UTankAimingComponent::AimAt(FVector OutHitLocation)
@@ -31,7 +52,7 @@ void UTankAimingComponent::AimAt(FVector OutHitLocation)
 		ESuggestProjVelocityTraceOption::DoNotTrace);
 	if (bFireSolution)
 	{
-		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrel(AimDirection);
 	}
 }
@@ -50,15 +71,15 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 
 void UTankAimingComponent::Fire()
 {
-	if (!ensure(Barrel)) { return; }
-	bool bIsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
-	if (bIsReloaded)
+	if (FiringState != EFiringState::Reloading)
 	{
+		if (!ensure(Barrel)) { return; }
+		if (!ensure(ProjectileBlueprint)) { return; }
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
 			ProjectileBlueprint,
 			Barrel->GetSocketLocation(FName("Projectile")),
 			Barrel->GetSocketRotation(FName("Projectile")));
-		Projectile->LaunchShell(LaunchSpeed);
-		LastFireTime = FPlatformTime::Seconds();
+			Projectile->LaunchShell(LaunchSpeed);
+			LastFireTime = GetWorld()->GetTimeSeconds();
 	}
 }
