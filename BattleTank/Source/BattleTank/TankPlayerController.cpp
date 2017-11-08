@@ -23,10 +23,12 @@ void ATankPlayerController::Tick(float DeltaTime)
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
+	if (!GetPawn()) { return; } // to address hard crash on opening PlayerController Blueprint
 	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (ensure(AimingComponent)) { FoundAimingComponent(AimingComponent); }
 	FVector OutHitLocation;
-	if (GetSightRayHitLocation(OutHitLocation)) { AimingComponent->AimAt(OutHitLocation); }
+	bool bGotHitLocation = GetSightRayHitLocation(OutHitLocation);
+	if (bGotHitLocation) { AimingComponent->AimAt(OutHitLocation); }
 }
 
 bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) const
@@ -42,9 +44,9 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	if (GetLookDirection(ScreenLocation, OutLookDirection))
 	{
 		// line-trace along that look direction, and see what we hit (to max range)
-		GetLookVectorHitLocation(OutLookDirection, OutHitLocation);
+		return GetLookVectorHitLocation(OutLookDirection, OutHitLocation);
 	}
-	return true;
+	return false;
 }
 
 bool ATankPlayerController::GetLookVectorHitLocation(FVector OutLookDirection, FVector& OutHitLocation) const

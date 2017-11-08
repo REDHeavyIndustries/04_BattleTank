@@ -21,4 +21,13 @@ public:
 	// max force per track in Newtons
 	UPROPERTY(EditDefaultsOnly)
 		float TrackMaxDrivingForce = 4000000; 
+
+private:
+	UTankTrack();
+	virtual void BeginPlay() override;
+	void SideSlipCorrect();
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+	void DriveTrack();
+	float CurrentThrottle = 0;
 };
