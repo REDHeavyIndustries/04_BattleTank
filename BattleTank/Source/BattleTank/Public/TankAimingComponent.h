@@ -16,7 +16,8 @@ enum class EFiringState : uint8
 {
 	Reloading,
 	Aiming,
-	Locked
+	Locked,
+	Empty
 };
 
 //FWD DECS
@@ -36,6 +37,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Setup)
 		void Fire();
 	EFiringState GetFiringState() const;
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	int32 GetRoundsLeft() const;
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
@@ -58,4 +61,5 @@ private:
 	UTankTurret* Turret = nullptr;
 	double LastFireTime = 0;
 	FVector AimDirection;
+	int32 RoundsLeft = 3;
 };
