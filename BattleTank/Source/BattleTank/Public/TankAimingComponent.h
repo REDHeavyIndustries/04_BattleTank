@@ -49,7 +49,8 @@ protected:
 		float LaunchSpeed = 50000;
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		float ReloadTimeInSeconds = 3;
-
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		int32 RoundsLeft = 3;
 private:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
@@ -61,5 +62,5 @@ private:
 	UTankTurret* Turret = nullptr;
 	double LastFireTime = 0;
 	FVector AimDirection;
-	int32 RoundsLeft = 3;
+	
 };
