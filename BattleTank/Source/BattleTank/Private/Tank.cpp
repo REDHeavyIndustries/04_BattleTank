@@ -2,6 +2,8 @@
 
 #include "Tank.h"
 
+
+
 // Sets default values
 ATank::ATank() { PrimaryActorTick.bCanEverTick = false; }
 float ATank::TakeDamage(float DamageAmount, FDamageEvent const & DamageEvent, AController * EventInstigator, AActor * DamageCauser)
@@ -11,14 +13,19 @@ float ATank::TakeDamage(float DamageAmount, FDamageEvent const & DamageEvent, AC
 	CurrentHealth -= DamageToApply;
 	if (CurrentHealth <= 0)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Tank DED"))
+		OnDeath.Broadcast();
 	}
-	
-
 	return DamageToApply;
 }
+
+float ATank::GetHealthPercent() const { return (float)CurrentHealth / (float)StartingHealth; }
+
 // Called when the game starts or when spawned
-void ATank::BeginPlay() { Super::BeginPlay(); }
+void ATank::BeginPlay() 
+{ 
+	Super::BeginPlay();
+	CurrentHealth = StartingHealth;
+}
 // Called to bind functionality to input
 void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 { Super::SetupPlayerInputComponent(PlayerInputComponent); }

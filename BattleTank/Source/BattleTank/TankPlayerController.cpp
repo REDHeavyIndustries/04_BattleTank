@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankPlayerController.h"
+#include "Public/Tank.h"
 #include "Public/TankAimingComponent.h"
 
 void ATankPlayerController::BeginPlay()
@@ -13,6 +14,19 @@ void ATankPlayerController::BeginPlay()
 		UE_LOG(LogTemp, Error, TEXT("PlayerController can't find Aiming Component @ BeginPlay"))
 	}
 }
+
+void ATankPlayerController::SetPawn(APawn * InPawn)
+{
+	Super::SetPawn(InPawn);
+	if (InPawn)
+	{
+		auto PossessedTank = Cast<ATank>(InPawn);
+		if (!ensure(PossessedTank)) { return; }
+		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnPossessedTankDeath);
+	}
+}
+
+void ATankPlayerController::OnPossessedTankDeath() { StartSpectatingOnly(); }
 
 // Called every frame
 void ATankPlayerController::Tick(float DeltaTime)

@@ -22,6 +22,9 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 
 private:
 	virtual void BeginPlay() override;
+	virtual void SetPawn(APawn* InPawn) override;
+	UFUNCTION()
+	void OnPossessedTankDeath();
 	void AimTowardsCrosshair();
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
 	bool GetLookVectorHitLocation(FVector LookDirection, FVector& OutHitLocation) const;
